@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" template="Template.xhtml">
+	<ui:define name="title">Startseite</ui:define>
+	<ui:define name="head">Startseite der Personenverwaltung</ui:define>
+	<ui:define name="content">
+		<a href="Suche.xhtml">#{fp.Suche}</a>
+		<br />
+		<a href="Liste.xhtml">#{fp.Liste}</a>
+		<br />
+		<a href="NeuePerson.xhtml">#{fp.NeuePerson}</a>
+	</ui:define>
+</ui:composition>

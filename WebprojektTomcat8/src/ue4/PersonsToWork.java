@@ -8,7 +8,7 @@ import javax.xml.bind.Unmarshaller;
 
 public class PersonsToWork {
 	private Persons person;
-	
+
 	public PersonsToWork() {
 		File file = new File("D:/Uni/WebProg2T8/WebprojektTomcat8/src/ue4/persons.xml");
 
@@ -19,22 +19,29 @@ public class PersonsToWork {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(person);
-//		person = new Persons();
-//		Person e = new Person("p1", "Peter", "Lustig", "Schillerstraﬂe", null);
-//		person.getPersons().add(e);
+		// person = new Persons();
+		// Person e = new Person("p1", "Peter", "Lustig", "Schillerstraﬂe",
+		// null);
+		// person.getPersons().add(e);
 	}
-	
-	public Person getPersonByName(String firstname){
-		return person.getPersons().stream().filter(a -> firstname.equals(a.getFirstname())).findFirst().get();
+
+	public Person getPersonByName(String firstname) {
+		try {
+			return person.getPersons().stream().filter(a -> firstname.equals(a.getFirstname())).findFirst().get();
+		} catch (Exception e) {
+			System.out.println("Niemanden gefunden");
+			return null;
+		}
 	}
-	
-	public List<Person> getPersons(){
-//		person = new Persons();
-//		Person e = new Person("p1", "Peter", "Lustig", "Schillerstraﬂe", null);
-//		List<Person> persons = new ArrayList<Person>();
-//		persons.add(e);
-//		person.setPersons(persons);
+
+	public List<Person> getPersons() {
+		// person = new Persons();
+		// Person e = new Person("p1", "Peter", "Lustig", "Schillerstraﬂe",
+		// null);
+		// List<Person> persons = new ArrayList<Person>();
+		// persons.add(e);
+		// person.setPersons(persons);
 		return person.getPersons();
 	}
+
 }
