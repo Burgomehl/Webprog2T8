@@ -14,12 +14,21 @@ public class ControllerOnePerson {
 	private Person person;
 	@ManagedProperty("#{param.firstname}")
 	private String firstname;
+	
+	public ControllerOnePerson() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@PostConstruct
 	private void init() {
-		personsToWork = ProjektFactory.getPersonsData();
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getApplicationMap().put("person", personsToWork);
+		Object object = context.getExternalContext().getApplicationMap().get("persons");
+		if (object == null) {
+			personsToWork = ProjektFactory.getPersonsData();
+			context.getExternalContext().getApplicationMap().put("persons", personsToWork);
+		} else {
+			personsToWork = (PersonsToWork) object;
+		}
 		person = personsToWork.getPersonByName(firstname);
 	}
 

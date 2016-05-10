@@ -12,6 +12,10 @@ import javax.faces.context.FacesContext;
 public class Controller {
 	PersonsToWork personsToWork;
 	private List<Person> persons;
+	
+	public Controller() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@PostConstruct
 	private void init() {

@@ -6,15 +6,16 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "persons", namespace = "")
+@XmlRootElement(name="persons", namespace="")
 public class Persons implements Serializable {
-
+	
 	private static final long serialVersionUID = 1L;
 	
-	@XmlElement(name="person")
+	@XmlElement(name = "person")
 	private List<Person> persons;
 	
 	public Persons(){
+		
 	}
 	
 	public Persons(List<Person> persons){
@@ -23,9 +24,5 @@ public class Persons implements Serializable {
 
 	public List<Person> getPersons() {
 		return persons;
-	}
-
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
 	}
 }
