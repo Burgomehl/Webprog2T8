@@ -1,5 +1,6 @@
 package ue4;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonsToWork {
@@ -16,9 +17,9 @@ public class PersonsToWork {
 //			e.printStackTrace();
 //		}
 //		System.out.println(data);
-		person = new Persons();
-		Person e = new Person("p1", "Peter", "Lustig", "Schillerstraﬂe", null);
-		person.getPersons().add(e);
+//		person = new Persons();
+//		Person e = new Person("p1", "Peter", "Lustig", "Schillerstraﬂe", null);
+//		person.getPersons().add(e);
 	}
 	
 	public Person getPersonByName(String firstname){
@@ -28,7 +29,9 @@ public class PersonsToWork {
 	public List<Person> getPersons(){
 		person = new Persons();
 		Person e = new Person("p1", "Peter", "Lustig", "Schillerstraﬂe", null);
-		person.getPersons().add(e);
+		List<Person> persons = new ArrayList<Person>();
+		persons.add(e);
+		person.setPersons(persons);
 		return person.getPersons();
 	}
 }
