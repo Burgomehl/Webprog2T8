@@ -1,14 +1,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 		xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-		xmlns:h="http://xmlns.jcp.org/jsf/html">
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core">
 		<cc:interface>
 			<cc:attribute name="value" required="true"/>
 		</cc:interface>
 		<cc:implementation>
 		<h:panelGrid border="1" columns="2">
 			<h:outputLabel value="Vorname: " />
-			<h:outputLabel value="#{cc.attrs.value.firstname}" />
+			<h:outputLabel value="#{cc.attrs.value.firstname}" >
+				<f:ajax event="valueChange" render="test" />
+			</h:outputLabel>
 			<h:outputLabel value="Nachname: " />
 			<h:outputLabel value="#{cc.attrs.value.lastname}" />
 			<h:outputLabel value="Wohnort: " />
@@ -23,5 +26,7 @@
 				</ul>
 			</h:panelGroup>
 		</h:panelGrid>
+		<h:outputLabel id="test" value="bla" style="visibility:#{eventHandler.visible}" />
+		
 		</cc:implementation>
 </html>
