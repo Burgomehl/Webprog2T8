@@ -1,10 +1,10 @@
-package uebung8;
+package uebung8.geschäftslogik;
 
-public class BusinessTierImplDummy implements BusinessTier {
+public class BusinessTierImpl implements BusinessTier{
 
 	@Override
 	public String getColor() {
-		return "#ff00ff";
+		return null;
 	}
 
 	@Override

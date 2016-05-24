@@ -1,4 +1,4 @@
-package uebung8;
+package uebung8.geschäftslogik;
 
 public interface BusinessTier {
 	public String getColor();

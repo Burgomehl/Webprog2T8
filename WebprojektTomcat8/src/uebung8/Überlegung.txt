@@ -1,0 +1,11 @@
+8.1.1
+	- Soll die aktuelle Farbe bereitstellen
+	- Soll den aktuellen Punktestand bereitstellen 
+	- Soll die Koordinaten verarbeiten
+	- Soll die Farbe ändern können
+	- Soll den Punktestand manipulieren
+	
+Scope: @RequestScoped
+
+Fragen:
+Die Farbe wird ja auf der ersten Seite ausgewählt (änderbarkeit der Properties) per Hand in der Properties oder durch das Program?
