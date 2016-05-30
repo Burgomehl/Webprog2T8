@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.xml.bind.JAXBContext;
@@ -36,12 +37,12 @@ public class PersonHandler {
 		return stringWriter.toString();
 	}
 
-	public String getPersonByParameter(IBool<Person> func) {
+	public String getPersonByParameter(Predicate<Person> func) {
 		List<Person> persons = person.getPersons();
 		StringWriter stringWriter = new StringWriter();
 		Persons tempPerson = new Persons();
 		for (Person p : persons) {
-			if (func.function(p)) {
+			if (func.test(p)) {
 				tempPerson.addPerson(p);
 			}
 		}
@@ -50,11 +51,11 @@ public class PersonHandler {
 		return stringWriter.toString();
 	}
 
-	public String getNamesByParamter(IBool<Person> func) {
+	public String getNamesByParamter(Predicate<Person> func) {
 		List<Person> persons = person.getPersons();
 		StringWriter stringWriter = new StringWriter();
 		for (Person p : persons) {
-			if (func.function(p)) {
+			if (func.test(p)) {
 				stringWriter.append(p.getFirstname() + (p.getLastname() != null?"_" + p.getLastname():"") + "\n\r");
 			}
 		}
