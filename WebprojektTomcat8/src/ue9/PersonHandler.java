@@ -11,15 +11,16 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import jdk.nashorn.internal.runtime.ECMAException;
 import ue9.Person;
 import ue9.Persons;
 
 public class PersonHandler {
 	Persons person;
+	private int id = 9;
 
 	public PersonHandler() {
-		File file = new File("D:/Uni/WebProg2T8/WebprojektTomcat8/src/ue4/persons.xml");
-
+		File file = new File("D:/Uni/WebProg2T8/WebprojektTomcat8/src/ue9/persons.xml");
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Persons.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
@@ -30,16 +31,9 @@ public class PersonHandler {
 	}
 
 	public String getAllPersons() {
-		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(Persons.class);
-			Marshaller createMarshaller = jaxbContext.createMarshaller();
-			StringWriter stringWriter = new StringWriter();
-			createMarshaller.marshal(person, stringWriter);
-			return stringWriter.toString();
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
-		return null;
+		StringWriter stringWriter = new StringWriter();
+		getXmlContent(stringWriter, person);
+		return stringWriter.toString();
 	}
 
 	public String getPersonByParameter(IBool<Person> func) {
@@ -51,15 +45,7 @@ public class PersonHandler {
 				tempPerson.addPerson(p);
 			}
 		}
-
-		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(Persons.class);
-			Marshaller createMarshaller = jaxbContext.createMarshaller();
-			createMarshaller.marshal(tempPerson, stringWriter);
-			stringWriter.toString();
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
+		getXmlContent(stringWriter, tempPerson);
 
 		return stringWriter.toString();
 	}
@@ -69,10 +55,51 @@ public class PersonHandler {
 		StringWriter stringWriter = new StringWriter();
 		for (Person p : persons) {
 			if (func.function(p)) {
-				stringWriter.append(p.getFirstname()+"_"+p.getLastname()+"\n\r");
+				stringWriter.append(p.getFirstname() + (p.getLastname() != null?"_" + p.getLastname():"") + "\n\r");
 			}
 		}
 		return stringWriter.toString();
+	}
+	
+	public void addPerson(String firstname, String name, String residence, String childof) throws Exception{
+		Person newPerson = new Person("p-"+id, firstname, name, residence, null);
+		Person tempParent = null;
+		for(Person p : person.getPersons()){
+			if(p.getFirstname().equals(childof)){
+				if(tempParent==null){
+					tempParent = p;
+				}else{
+					throw new Exception("Parentname exists more then one time");
+				}
+			}
+			if(tempParent == null){
+				throw new Exception("Parent not found");
+			}
+		}
+		List<Person> children = tempParent.getChildren();
+		children.add(newPerson);
+		tempParent.setChildren(children);
+	}
+	
+	public boolean deletePerson(String firstname){
+		for(Person p: person.getPersons()){
+			if(p.getFirstname().equals(firstname)){
+				person.getPersons().remove(p);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void getXmlContent(StringWriter stringWriter, Persons tempPerson) {
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(Persons.class);
+			Marshaller createMarshaller = jaxbContext.createMarshaller();
+			createMarshaller.marshal(tempPerson, stringWriter);
+			stringWriter.toString();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
