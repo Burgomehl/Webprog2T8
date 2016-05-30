@@ -31,24 +31,19 @@ public class PersonHandler {
 		}
 	}
 
-	public String getAllPersons() {
-		StringWriter stringWriter = new StringWriter();
-		getXmlContent(stringWriter, person);
-		return stringWriter.toString();
+	public Persons getAllPersons() {
+		return person;
 	}
 
-	public String getPersonByParameter(Predicate<Person> func) {
+	public Persons getPersonByParameter(Predicate<Person> func) {
 		List<Person> persons = person.getPersons();
-		StringWriter stringWriter = new StringWriter();
 		Persons tempPerson = new Persons();
 		for (Person p : persons) {
 			if (func.test(p)) {
 				tempPerson.addPerson(p);
 			}
 		}
-		getXmlContent(stringWriter, tempPerson);
-
-		return stringWriter.toString();
+		return tempPerson;
 	}
 
 	public String getNamesByParamter(Predicate<Person> func) {

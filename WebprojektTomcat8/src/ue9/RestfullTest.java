@@ -21,28 +21,27 @@ public class RestfullTest {
 	@GET
 	@Path("/T")
 	@Produces({"text/xml","application/json"})
-	public String test() {
-		
+	public Persons test() {
 		return personHandler.getAllPersons();
 	}
 	@GET
 	@Path("/Get/vorname/{parameter}")
 	@Produces({"text/xml","application/json"})
-	public String get(@PathParam("parameter") String parameter) {
+	public Persons get(@PathParam("parameter") String parameter) {
 		return personHandler.getPersonByParameter((person)->parameter.equals(person.getFirstname()));
 	}
 	
 	@GET
 	@Path("/Get/name/{parameter}")
 	@Produces({"text/xml","application/json"})
-	public String get2(@PathParam("parameter") String parameter) {
+	public Persons get2(@PathParam("parameter") String parameter) {
 		return personHandler.getPersonByParameter((person)->parameter.equals(person.getLastname()));
 	}
 	
 	@GET
 	@Path("/Get/ort/{parameter}")
 	@Produces({"text/xml","application/json"})
-	public String get3(@PathParam("parameter") String parameter) {
+	public Persons get3(@PathParam("parameter") String parameter) {
 		return personHandler.getPersonByParameter((person)->parameter.equals(person.getResidence()));
 	}
 	
