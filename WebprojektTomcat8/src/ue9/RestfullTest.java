@@ -48,15 +48,15 @@ public class RestfullTest {
 	@GET
 	@Path("/Get/namebyort/{parameter}")
 	@Produces({"text/xml","application/json"})
-	public String get4(@PathParam("parameter") String parameter) {
-		return personHandler.getNamesByParamter((person)->parameter.equals(person.getResidence()));
+	public Response get4(@PathParam("parameter") String parameter) {
+		return Response.ok(personHandler.getNamesByParamter((person)->parameter.equals(person.getResidence()))).build();
 	}
 	
 	@GET
 	@Path("/Get/namen")
 	@Produces({"text/plain"})
-	public String get5(@PathParam("parameter") String parameter) {
-		return personHandler.getNamesByParamter((person)->true);
+	public Response get5(@PathParam("parameter") String parameter) {
+		return Response.ok(personHandler.getNamesByParamter((person)->true)).build();
 	}
 	
 	@PUT

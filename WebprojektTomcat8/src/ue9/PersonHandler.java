@@ -2,26 +2,22 @@ package ue9;
 
 import java.io.File;
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import jdk.nashorn.internal.runtime.ECMAException;
-import ue9.Person;
-import ue9.Persons;
-
 public class PersonHandler {
 	Persons person;
 	private int id = 9;
 
 	public PersonHandler() {
-		File file = new File("D:/Uni/WebProg2T8/WebprojektTomcat8/src/ue9/persons.xml");
+		File file = new File("C:/Users/Benjamin Byl/git/Webprog2T8/WebprojektTomcat8/src/ue9/persons.xml");
+		System.out.println(System.getenv("user_dir"));
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Persons.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
@@ -46,15 +42,16 @@ public class PersonHandler {
 		return tempPerson;
 	}
 
-	public String getNamesByParamter(Predicate<Person> func) {
-		List<Person> persons = person.getPersons();
-		StringWriter stringWriter = new StringWriter();
-		for (Person p : persons) {
-			if (func.test(p)) {
-				stringWriter.append(p.getFirstname() + (p.getLastname() != null?"_" + p.getLastname():"") + "\n\r");
-			}
-		}
-		return stringWriter.toString();
+	public List<String> getNamesByParamter(Predicate<Person> func) {
+//		List<Person> persons = person.getPersons();
+////		StringWriter stringWriter = new StringWriter();
+//		for (Person p : persons) {
+//			if (func.test(p)) {
+////				stringWriter.append(p.getFirstname() + (p.getLastname() != null?"_" + p.getLastname():"") + "\n\r");
+//			}
+//		}
+////		return stringWriter.toString();
+		return person.getPersons().stream().map(p->p.getFirstname()).collect(Collectors.toList());
 	}
 	
 	public void addPerson(String firstname, String name, String residence, String childof) throws Exception{
