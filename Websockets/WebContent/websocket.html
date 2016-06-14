@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<button onclick="generateRandomeNumber()">Generate</button>
+	<textarea rows="10" cols="10" id="numbers"></textarea>
+	<textarea rows="10" cols="10" id="messages"></textarea>
+	<script type="text/javascript">
+		var ws = new WebSocket("ws://localhost:8080/Websockets/websocket/numericalchat");
+		ws.onopen = function(){
+			
+		}
+		ws.onmessage = function(){
+			
+		}
+		ws.onclose = function(){
+			
+		}
+		function generateRandomNumber(){
+			var x = Math.round(Math.random() * 100);
+			ws.send(x);
+		}
+	</script>
+</body>
+</html>
