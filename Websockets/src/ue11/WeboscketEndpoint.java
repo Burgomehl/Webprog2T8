@@ -14,18 +14,15 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import javax.ws.rs.PathParam;
 
-@ServerEndpoint("/websocket/numericalchat")
+@ServerEndpoint(value="/websocket/numericalchat", encoders = {ChatMessageEncoder.class}, decoders = {ChatMessageDecoder.class})
 public class WeboscketEndpoint {
 	private static Set <Session> session = Collections.synchronizedSet(new HashSet<>());
-	private String name;
 
 	@OnOpen
-	public void onOpen(Session session, EndpointConfig endpointConfig,@PathParam("name") String name) {
+	public void onOpen(Session session, EndpointConfig endpointConfig) {
 		this.session.add(session);
-		session.getAsyncRemote().sendText(name+ " connected to server");
-		this.name = name;
 //		session.getOpenSessions().add(session);
-		System.out.println(session.getOpenSessions().size()+"");
+//		System.out.println(session.getOpenSessions().size()+"");
 	}
 	
 	@OnError
@@ -36,15 +33,17 @@ public class WeboscketEndpoint {
 	@OnClose
 	public void onClose(Session session, CloseReason closeReason) {
 		this.session.remove(session);
-		session.getAsyncRemote().sendText(name+ " disconnected from server "+closeReason);
+//		session.getAsyncRemote().sendText( " disconnected from server "+closeReason);
 	}
 	
 	@OnMessage
 	public void onMessage(String message) {
 		try{
-			for(Session s : this.session){
+			for(Session s : session){
 				if(s.isOpen()){
-					s.getAsyncRemote().sendText(message);
+//					s.getAsyncRemote().sendText(message);
+					s.getBasicRemote().sendText(message);
+					System.out.println(message);
 				}
 			}
 		}catch(Exception e){

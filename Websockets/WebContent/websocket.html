@@ -5,24 +5,45 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<button onclick="generateRandomeNumber()">Generate</button>
+	<div>
+		<input type="submit" value="Generate" onclick="generateRandomNumber()"/>
+	</div>
 	<textarea rows="10" cols="10" id="numbers"></textarea>
 	<textarea rows="10" cols="10" id="messages"></textarea>
 	<script type="text/javascript">
 		var ws = new WebSocket("ws://localhost:8080/Websockets/websocket/numericalchat");
-		ws.onopen = function(){
-			
+		ws.onopen = function(event){
+			onOpen(event);
 		}
-		ws.onmessage = function(){
-			
+		ws.onmessage = function(event){
+			onMessage(event);
 		}
-		ws.onclose = function(){
-			
+		ws.onclose = function(event){
+			onClose(event);
 		}
+
+		function onClose(event){
+	    	document.getElementById('messages').innerHTML 
+				= 'Connection closed';
+	    };
+	    
+		function onMessage(event) {
+			var msg = event.data;
+			document.getElementById('numbers').innerHTML 
+				= msg+"\n" + document.getElementById('numbers').innerHTML ;
+	    };
+        function onOpen(event) {
+        	document.getElementById('messages').innerHTML 
+				= 'Connection established';
+        };
+	    function onError(event) {
+	    	alert(event.data);
+	    };
+	    
 		function generateRandomNumber(){
 			var x = Math.round(Math.random() * 100);
 			ws.send(x);
-		}
+		};
 	</script>
 </body>
 </html>
